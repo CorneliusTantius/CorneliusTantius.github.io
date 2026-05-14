@@ -19,9 +19,26 @@ function App() {
    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝ ╚══════╝`;
  const heroContent = {
     name: "Tantius Cornelius",
-    title: "Full Stack Developer",
-    bio: "Software Engineer experienced in building backend services and production systems across education, consulting, fintech, and travel sectors. Skilled in backend development, API integration, system reliability, and well versed developing with AI bsed tools.",
-    skills: ["JavaScript", "TypeScript", "React", "Node.js", "Python", "Docker"],
+    title: "Backend & Infrastructure Engineer",
+    bio: "Engineer at CekatAI building backend services, infrastructure, and production architecture across AI, travel, fintech, and education. I like turning messy product problems into reliable systems: clean APIs, practical automation, observable services, and the occasional tiny frontend when the UI needs a little love. Linux and open-source enthusiast.",
+    skills: [
+      { name: "Python", icon: "python" },
+      { name: "TypeScript", icon: "ts" },
+      { name: "JavaScript", icon: "js" },
+      { name: "Java", icon: "java" },
+      { name: "C", icon: "c" },
+      { name: "C++", icon: "cpp" },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "MongoDB", icon: "mongodb" },
+      { name: "PostgreSQL", icon: "postgres" },
+      { name: "Redis", icon: "redis" },
+      { name: "AWS", icon: "aws" },
+      { name: "Azure", icon: "azure" },
+      { name: "Docker", icon: "docker" },
+      { name: "Git", icon: "git" },
+      { name: "Linux", icon: "linux" },
+      { name: "Bash", icon: "bash" }
+    ],
     social: {
       email: "corneliustantius.ct@gmail.com",
       linkedin: "https://linkedin.com/in/corneliustantius",
@@ -209,7 +226,15 @@ function App() {
           <h3 className="section-title">~/skills</h3>
           <div className="hero-skills">
             {heroContent.skills.map((skill, index) => (
-              <span key={index} className="skill-tag">{skill}</span>
+              <span key={index} className="skill-tag">
+                <img
+                  src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                  alt=""
+                  aria-hidden="true"
+                  className="skill-icon"
+                />
+                <span>{skill.name}</span>
+              </span>
             ))}
           </div>
         </section>
