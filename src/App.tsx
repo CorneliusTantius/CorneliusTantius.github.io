@@ -48,9 +48,19 @@ function App() {
 
   const workExperience = [
     {
+      company: "CekatAI",
+      role: "Senior Full Stack Engineer",
+      period: "2026 - Present",
+      description: [
+        "Own stability engineering for the main chat product, improving reliability, scalability, and extensibility across core product services.",
+        "Lead infrastructure migration and enhancement initiatives to strengthen deployment workflows, operations, and long-term maintainability.",
+        "Enhance shared services platform capabilities so product teams can build, integrate, and scale services more safely and efficiently."
+      ]
+    },
+    {
       company: "SingaPay",
       role: "Senior Full Stack Engineer (SDE-3)",
-      period: "2026 - Present",
+      period: "2026 - 2026",
       description: [
         "Implemented major Virtual Account Core generation algorithm enhancement to reduce VA generation process time, latency and database load (2-3 minutes) to less than 1s generation time.",
         "Implemented pending transaction handling to reduce manual operational contact rate up to ~90%.",
@@ -89,6 +99,42 @@ function App() {
         "Developed and maintained newbinusmaya project allowing student to access all class resources, class schedule, submitting assignment, scoring, and discussion forum seamlessly from web or mobile app.",
         "Developed internal project DevBees as a platform for internal documentation including API contract, Master & Transaction Database relational, and also general knowledge docs. Allowing internal documentation to have 0 cost"
       ]
+    }
+  ]
+
+  const projects = [
+    {
+      name: "Volundr",
+      featured: true,
+      url: "https://github.com/CorneliusTantius/volundr",
+      summary: "Personal AI coding agent stack focused on extensible tools, local-first workflows, and terminal-native developer experience.",
+      highlights: [
+        "Built custom agent/runtime workflows for practical coding automation.",
+        "Designed extensible tool and provider integration patterns.",
+        "Optimized for fast iteration, local control, and low-friction developer UX."
+      ],
+      tags: ["AI Agents", "CLI", "TypeScript", "Developer Tools"]
+    },
+    {
+      name: "pi-tincan",
+      url: "https://github.com/CorneliusTantius/pi-tincan",
+      summary: "Companion package extending pi with structured clarification, delegation, and squad-style agent workflows.",
+      highlights: [
+        "Added structured decision UX through ask_user_question flows.",
+        "Built tincan_squad delegation for multi-agent task execution.",
+        "Improved agent communication contracts and orchestration behavior."
+      ],
+      tags: ["Agent Orchestration", "TypeScript", "UX", "Automation"]
+    },
+    {
+      name: "dotfiles",
+      url: "https://github.com/CorneliusTantius/dotfiles",
+      summary: "Personal Linux and development environment configuration for repeatable, keyboard-first engineering.",
+      highlights: [
+        "Maintains shell, editor, terminal, and workflow configuration.",
+        "Optimized for speed, portability, and everyday engineering ergonomics."
+      ],
+      tags: ["Linux", "Shell", "Neovim", "Productivity"]
     }
   ]
 
@@ -174,6 +220,33 @@ function App() {
                     <li key={idx} className="description">{item}</li>
                   ))}
                 </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+        <hr className="section-divider" />
+        <section className="projects-section">
+          <h3 className="section-title">~/projects</h3>
+          <div className="project-list">
+            {projects.map((project, index) => (
+              <div key={index} className={`project-item${project.featured ? ' featured' : ''}`}>
+                <div className="project-header">
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
+                    {project.name}
+                  </a>
+                  {project.featured && <span className="project-badge">FEATURED</span>}
+                </div>
+                <p className="project-summary">{project.summary}</p>
+                <ul className="description-list">
+                  {project.highlights.map((item, idx) => (
+                    <li key={idx} className="description">{item}</li>
+                  ))}
+                </ul>
+                <div className="project-tags">
+                  {project.tags.map((tag, idx) => (
+                    <span key={idx} className="project-tag">{tag}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
