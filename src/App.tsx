@@ -53,7 +53,6 @@ function App() {
     <div className="portfolio-shell">
       <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
       <header className="topbar">
-        <a className="brand-mark" href="#top" aria-label="Tantius Cornelius, back to top">CT<span>.</span></a>
         <nav className="primary-nav" aria-label="Portfolio sections">
           {navigation.map(({ id, label }) => <a key={id} className={activeSection === id ? 'nav-link active' : 'nav-link'} href={`#${id}`}>{label}</a>)}
         </nav>
