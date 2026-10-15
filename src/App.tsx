@@ -2,12 +2,6 @@ import { useEffect, useState } from 'preact/hooks'
 import './App.css'
 import { awards, education, heroContent, languages, projects, workExperience } from './content'
 
-const navigation = [
-  { id: 'work-experience', label: 'Experience' }, { id: 'projects', label: 'Projects' },
-  { id: 'awards-honors', label: 'Awards' }, { id: 'languages', label: 'Languages' },
-  { id: 'education', label: 'Education' }, { id: 'skills', label: 'Skills' },
-]
-
 const backgroundStarGlyphs = [
   '✦', '✧', '✶', '✧', '✦', '✧', '✶', '✦', '✧', '✦', '✧', '✶',
   '✧', '✦', '✧', '✶', '✦', '✧', '✶', '✦', '✧', '✦', '✶', '✧',
@@ -47,7 +41,6 @@ function ThemeIcon({ theme }: { theme: Theme }) {
 }
 
 function App() {
-  const [activeSection, setActiveSection] = useState(navigation[0].id)
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
@@ -72,16 +65,7 @@ function App() {
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
     revealItems.forEach((item) => revealObserver.observe(item))
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveSection(entry.target.id)
-      })
-    }, { rootMargin: '-20% 0px -65% 0px' })
-    navigation.forEach(({ id }) => {
-      const section = document.getElementById(id)
-      if (section) sectionObserver.observe(section)
-    })
-    return () => { revealObserver.disconnect(); sectionObserver.disconnect() }
+    return () => revealObserver.disconnect()
   }, [])
 
   return (
@@ -90,15 +74,9 @@ function App() {
       <div className="background-stars" aria-hidden="true">
         {backgroundStarGlyphs.map((glyph, index) => <span key={index}>{glyph}</span>)}
       </div>
-      <header className="topbar">
-        <nav className="primary-nav" aria-label="Portfolio sections">
-          {navigation.map(({ id, label }) => <a key={id} className={activeSection === id ? 'nav-link active' : 'nav-link'} href={`#${id}`}>{label}</a>)}
-        </nav>
-        <button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} aria-pressed={theme === 'dark'} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-          <ThemeIcon theme={theme} />
-          <span>{theme === 'light' ? 'Dark mode' : 'Light mode'}</span>
-        </button>
-      </header>
+      <button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} aria-pressed={theme === 'dark'} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+        <ThemeIcon theme={theme} />
+      </button>
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-name">

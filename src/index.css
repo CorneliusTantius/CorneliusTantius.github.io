@@ -45,7 +45,7 @@
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; scroll-behavior: smooth; scroll-padding-top: 104px; }
+html { min-width: 320px; scroll-behavior: smooth; scroll-padding-top: 24px; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); }
 body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(rgba(32, 43, 64, .08) .6px, transparent .8px); background-size: 7px 7px; opacity: .2; }
 a { color: inherit; }
