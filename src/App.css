@@ -39,7 +39,6 @@
 
 .content-section { padding: 104px 5% 0; scroll-margin-top: 108px; }
 .section-heading { display: flex; align-items: center; gap: 16px; margin-bottom: 39px; }
-.section-index { color: var(--terracotta); font-size: 13px; font-weight: 700; }
 .section-heading h2 { margin: 0; color: var(--ink); font: 400 clamp(28px, 3vw, 38px)/1.15 var(--serif); letter-spacing: -.02em; }
 .heading-rule { height: 1px; flex: 1; margin-left: 9px; background: linear-gradient(90deg, #d4d0c7, transparent); }
 .experience-list { position: relative; display: flex; flex-direction: column; }

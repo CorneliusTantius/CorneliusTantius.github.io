@@ -18,8 +18,8 @@ function SocialIcon({ name }: { name: 'email' | 'linkedin' | 'github' }) {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.75a9.25 9.25 0 0 0-2.93 18.02c.46.08.63-.2.63-.45v-1.6c-2.57.56-3.11-1.09-3.11-1.09-.42-1.07-1.03-1.36-1.03-1.36-.84-.58.06-.57.06-.57.93.06 1.42.96 1.42.96.83 1.42 2.17 1.01 2.7.77.08-.6.33-1.01.59-1.24-2.05-.24-4.21-1.03-4.21-4.58 0-1.01.36-1.84.95-2.49-.1-.23-.41-1.18.09-2.46 0 0 .77-.25 2.54.95a8.84 8.84 0 0 1 4.62 0c1.77-1.2 2.53-.95 2.53-.95.51 1.28.19 2.23.1 2.46.59.65.94 1.48.94 2.49 0 3.56-2.16 4.34-4.22 4.57.33.29.62.85.62 1.71v2.43c0 .25.17.54.64.45A9.25 9.25 0 0 0 12 2.75Z" /></svg>
 }
 
-function SectionHeading({ children, index }: { children: string; index: string }) {
-  return <div className="section-heading"><span className="section-index" aria-hidden="true">{index}</span><h2>{children}</h2><span className="heading-rule" aria-hidden="true" /></div>
+function SectionHeading({ children }: { children: string }) {
+  return <div className="section-heading"><h2>{children}</h2><span className="heading-rule" aria-hidden="true" /></div>
 }
 
 function App() {
@@ -83,7 +83,7 @@ function App() {
         </section>
 
         <section className="content-section experience-section" id="work-experience">
-          <SectionHeading index="01">Work experience</SectionHeading>
+          <SectionHeading>Work experience</SectionHeading>
           <div className="experience-list">
             {workExperience.map((job, index) => <article key={job.company} className="experience-card" data-reveal>
               <div className="timeline-marker" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span></div>
@@ -96,7 +96,7 @@ function App() {
         </section>
 
         <section className="content-section projects-section" id="projects">
-          <SectionHeading index="02">Selected projects</SectionHeading>
+          <SectionHeading>Selected projects</SectionHeading>
           <div className="project-grid">
             {projects.map((project, index) => <article key={project.name} className={`project-card${project.featured ? ' featured' : ''}`} data-reveal>
               <div className={`project-art project-art-${index + 1}`} aria-hidden="true"><span className="project-art-orbit" /><span className="project-art-core" /><span className="project-art-glyph">{index === 0 ? 'V' : index === 1 ? 'π' : '{ }'}</span><span className="project-art-coordinate">0{index + 1}</span></div>
@@ -111,21 +111,21 @@ function App() {
         </section>
 
         <section className="content-section awards-section" id="awards-honors">
-          <SectionHeading index="03">Awards &amp; honors</SectionHeading>
+          <SectionHeading>Awards &amp; honors</SectionHeading>
           <div className="award-grid">{awards.map((award) => <article key={award.title} className="award-card" data-reveal><span className="award-year">{award.year}</span><h3 className="award-title">{award.title}</h3><p className="award-description">{award.description}</p><span className="award-star" aria-hidden="true">✳</span></article>)}</div>
         </section>
 
         <section className="content-section languages-section" id="languages">
-          <SectionHeading index="04">Languages</SectionHeading>
+          <SectionHeading>Languages</SectionHeading>
           <div className="language-grid">{languages.map((language, index) => <div key={language.name} className="language-card" data-reveal><span className="language-index">0{index + 1}</span><span className="language-name">{language.name}</span><span className="language-level">{language.level}</span><span className="language-signal" aria-hidden="true"><i /><i /><i /><i /></span></div>)}</div>
         </section>
         <section className="content-section education-section" id="education">
-          <SectionHeading index="05">Education</SectionHeading>
+          <SectionHeading>Education</SectionHeading>
           <div className="education-list">{education.map((edu) => <article key={edu.institution} className="education-card" data-reveal><div className="education-emblem" aria-hidden="true">✳</div><div className="education-main"><div className="education-header"><h3 className="institution">{edu.institution}</h3><span className="period">{edu.period}</span></div><p className="degree">{edu.degree}</p><p className="education-description">{edu.description}</p></div></article>)}</div>
         </section>
 
         <section className="content-section skills-section" id="skills">
-          <SectionHeading index="06">Technical skills</SectionHeading>
+          <SectionHeading>Technical skills</SectionHeading>
           <div className="skills-grid">{heroContent.skills.map((skill) => <div key={skill.name} className="skill-card" data-reveal><img src={`https://skillicons.dev/icons?i=${skill.icon}`} alt="" aria-hidden="true" className="skill-icon" loading="lazy" decoding="async" /><span>{skill.name}</span></div>)}</div>
         </section>
 
