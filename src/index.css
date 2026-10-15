@@ -21,6 +21,7 @@
   --accent-soft: #e6e9f4;
   --terracotta: #b76a52;
   --line: #dfddd7;
+  --text-halo: rgba(244, 241, 235, .94);
   --serif: 'DM Serif Display', Georgia, serif;
   --sans: 'DM Sans', 'Segoe UI', Arial, sans-serif;
 }
@@ -40,6 +41,7 @@
   --accent-soft: #30384f;
   --terracotta: #e2997f;
   --line: #353d4a;
+  --text-halo: rgba(20, 24, 32, .96);
 }
 
 * { box-sizing: border-box; }

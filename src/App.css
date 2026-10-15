@@ -192,6 +192,19 @@
   .footer-name { display: none; }
 }
 
+/* Soft theme-matched text halos keep animated stars from reducing text contrast. */
+.hero .eyebrow,
+.hero h1,
+.hero-bio,
+.section-heading h2,
+.experience-card .company,
+.experience-card .role,
+.experience-card .description-list li,
+.scroll-note,
+.site-footer .footer-name {
+  text-shadow: 0 0 7px var(--text-halo), 0 0 14px var(--text-halo);
+}
+
 /* Quiet ambient motion keeps the page feeling alive without competing with its content. */
 .portfolio-shell { isolation: isolate; }
 .ambient {
