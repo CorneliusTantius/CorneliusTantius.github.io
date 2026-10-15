@@ -45,10 +45,10 @@
 .section-heading { display: flex; align-items: center; gap: 16px; margin-bottom: 39px; }
 .section-heading h2 { margin: 0; color: var(--ink); font: 400 clamp(28px, 3vw, 38px)/1.15 var(--serif); letter-spacing: -.02em; }
 .heading-rule { height: 1px; flex: 1; margin-left: 9px; background: linear-gradient(90deg, #d4d0c7, transparent); }
-.experience-list { position: relative; display: flex; flex-direction: column; }
-.experience-list::before { content: ''; position: absolute; left: 21px; top: 29px; bottom: 31px; width: 1px; background: linear-gradient(var(--accent), rgba(82,105,183,.12)); }
-.experience-card { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 22px; padding: 26px 28px 28px 0; border-top: 1px solid var(--line); transition: background .2s; }
-.experience-card:hover { background: rgba(255,255,255,.48); }
+.experience-list { position: relative; display: flex; flex-direction: column; gap: 13px; }
+.experience-list::before { content: ''; position: absolute; left: 50px; top: 48px; bottom: 48px; width: 1px; background: linear-gradient(var(--accent), rgba(82,105,183,.12)); }
+.experience-card { position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 22px; padding: 23px 27px 25px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); box-shadow: 0 7px 22px rgba(31,43,65,.035); transition: border-color .2s, box-shadow .2s; }
+.experience-card:hover { border-color: var(--accent); box-shadow: 0 12px 28px rgba(31,43,65,.08); }
 .timeline-marker { position: relative; z-index: 1; display: flex; justify-content: center; padding-top: 3px; }
 .timeline-marker span { width: 42px; height: 42px; display: grid; place-items: center; color: var(--accent-dark); border: 1px solid #bdc5dd; border-radius: 50%; background: var(--bg); font-size: 12px; font-weight: 700; }
 .experience-topline, .education-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
@@ -125,7 +125,6 @@
 :root[data-theme='dark'] .social-btn { border-color: #3b4351; background: rgba(28,34,45,.8); }
 :root[data-theme='dark'] .social-btn:hover { color: #141820; border-color: var(--accent); background: var(--accent); }
 :root[data-theme='dark'] .profile-caption { color: #202b40; }
-:root[data-theme='dark'] .experience-card:hover { background: rgba(255,255,255,.035); }
 :root[data-theme='dark'] .period { border-color: var(--line); background: var(--surface); }
 :root[data-theme='dark'] .project-card { border-color: var(--line); }
 :root[data-theme='dark'] .project-card:hover { border-color: #6577b2; }
@@ -165,7 +164,7 @@
   .scroll-note { left: 2%; bottom: 21px; }
   .content-section, .projects-section, .awards-section, .languages-section, .education-section, .skills-section { padding: 76px 0 0; scroll-margin-top: 119px; }
   .section-heading { gap: 11px; margin-bottom: 27px; }.section-heading h2 { font-size: clamp(27px, 7vw, 34px); }
-  .experience-list::before { left: 17px; }.experience-card { grid-template-columns: 37px 1fr; gap: 13px; padding: 21px 0 20px; }
+  .experience-list::before { left: 37.5px; top: 38px; bottom: 38px; }.experience-card { grid-template-columns: 37px 1fr; gap: 13px; padding: 18px 19px; }
   .timeline-marker span { width: 35px; height: 35px; font-size: 11px; }
   .company { font-size: 21px; }.role { font-size: 14px; margin: 5px 0 13px; }
   .experience-topline { gap: 10px; }.period { padding: 7px 9px; font-size: 12px; }
@@ -185,7 +184,7 @@
   .portfolio-shell { width: calc(100% - 28px); }
   .hero h1 { font-size: clamp(61px, 14vw, 78px); }
   .social-links { gap: 7px; }.social-btn { min-height: 41px; gap: 7px; padding: 0 12px; font-size: 13px; }
-  .experience-card { grid-template-columns: 31px 1fr; gap: 9px; }.experience-list::before { left: 15px; }.timeline-marker span { width: 31px; height: 31px; font-size: 10px; }
+  .experience-card { grid-template-columns: 31px 1fr; gap: 9px; padding: 14px 12px; }.experience-list::before { left: 27.5px; top: 32.5px; bottom: 32.5px; }.timeline-marker span { width: 31px; height: 31px; font-size: 10px; }
   .company { font-size: 19px; }.experience-topline { flex-direction: column; }.experience-topline .period { order: -1; }
   .education-header { flex-direction: column; }.education-header .period { order: -1; }
   .skills-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
