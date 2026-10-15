@@ -8,6 +8,12 @@ const navigation = [
   { id: 'education', label: 'Education' }, { id: 'skills', label: 'Skills' },
 ]
 
+const backgroundStarGlyphs = [
+  '✦', '✧', '✶', '✧', '✦', '✧', '✶', '✦', '✧', '✦', '✧', '✶',
+  '✧', '✦', '✧', '✶', '✦', '✧', '✶', '✦', '✧', '✦', '✶', '✧',
+  '✦', '✧', '✶', '✦', '✧', '✦', '✶', '✧', '✦', '✶', '✧', '✦',
+]
+
 function ArrowIcon() {
   return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4.5 10h10M9.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
 }
@@ -82,8 +88,7 @@ function App() {
     <div className="portfolio-shell">
       <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
       <div className="background-stars" aria-hidden="true">
-        <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span><span>✧</span>
-        <span>✦</span><span>✧</span><span>✦</span><span>✧</span><span>✦</span><span>✧</span>
+        {backgroundStarGlyphs.map((glyph, index) => <span key={index}>{glyph}</span>)}
       </div>
       <header className="topbar">
         <nav className="primary-nav" aria-label="Portfolio sections">
