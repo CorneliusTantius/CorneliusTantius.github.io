@@ -163,7 +163,7 @@ function App() {
         </section>
 
       </main>
-      <footer className="site-footer"><span className="footer-brand">CT<span>.</span></span><span className="footer-name">Tantius Cornelius · Backend &amp; Infrastructure Engineer</span><a href="#top">Back to top <ArrowIcon /></a></footer>
+      <footer className="site-footer"><span className="footer-brand">CT<span>.</span></span><span className="footer-name">Tantius Cornelius · Backend &amp; Infrastructure Engineer</span></footer>
     </div>
   )
 }
