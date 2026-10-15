@@ -127,8 +127,8 @@ function App() {
         <section className="content-section experience-section" id="work-experience">
           <SectionHeading>Work experience</SectionHeading>
           <div className="experience-list">
-            {workExperience.map((job, index) => <article key={job.company} className="experience-card" data-reveal>
-              <div className="timeline-marker" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span></div>
+            {workExperience.map((job) => <article key={job.company} className="experience-card" data-reveal>
+              <div className="timeline-marker" aria-hidden="true"><span /></div>
               <div className="experience-main">
                 <div className="experience-topline"><div><h3 className="company">{job.company}</h3><p className="role">{job.role}</p></div><span className="period">{job.period}</span></div>
                 <ul className="description-list">{job.description.map((item) => <li key={item}>{item}</li>)}</ul>
