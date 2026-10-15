@@ -191,3 +191,83 @@
   .skills-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .footer-name { display: none; }
 }
+
+/* Quiet ambient motion keeps the page feeling alive without competing with its content. */
+.portfolio-shell { isolation: isolate; }
+.ambient {
+  position: fixed;
+  z-index: -1;
+  width: clamp(240px, 34vw, 460px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(78px);
+  opacity: .34;
+  animation: ambient-drift 28s ease-in-out infinite alternate;
+}
+.ambient-one {
+  top: 7vh;
+  left: -260px;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+}
+.ambient-two {
+  right: -280px;
+  bottom: 1vh;
+  background: radial-gradient(circle, rgba(183,106,82,.2) 0%, transparent 70%);
+  animation-delay: -13s;
+  animation-duration: 34s;
+}
+.profile-card { animation: profile-float 8s ease-in-out infinite; }
+.profile-orbit-one { animation: orbit-turn 34s linear infinite; }
+.profile-orbit-two { animation: orbit-turn 42s linear infinite reverse; }
+.profile-spark { animation: spark-glimmer 4.8s ease-in-out infinite; }
+.spark-two { animation-delay: -2.4s; }
+.project-art-orbit { animation: orbit-turn 30s linear infinite; }
+.project-art-2 .project-art-orbit { animation-duration: 38s; animation-direction: reverse; }
+.project-art-3 .project-art-orbit { animation-duration: 25s; }
+.project-art-core { animation: core-breathe 6s ease-in-out infinite; }
+.project-art-2 .project-art-core { animation-delay: -2s; }
+.project-art-3 .project-art-core { animation-delay: -4s; }
+.award-star { rotate: 0deg; animation: ornament-turn 24s linear infinite; }
+.language-signal i { transform-origin: center bottom; animation: signal-breathe 1.9s ease-in-out infinite alternate; }
+.language-signal i:nth-child(2) { animation-delay: -.5s; }
+.language-signal i:nth-child(3) { animation-delay: -1s; }
+.language-signal i:nth-child(4) { animation-delay: -1.5s; }
+
+@keyframes ambient-drift {
+  from { transform: translate3d(0, -14px, 0) scale(.96); }
+  to { transform: translate3d(55px, 32px, 0) scale(1.08); }
+}
+@keyframes profile-float {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+@keyframes orbit-turn {
+  to { rotate: 1turn; }
+}
+@keyframes spark-glimmer {
+  0%, 100% { opacity: .66; scale: .9; }
+  50% { opacity: 1; scale: 1.12; }
+}
+@keyframes core-breathe {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.07; }
+}
+@keyframes ornament-turn {
+  to { rotate: 1turn; }
+}
+@keyframes signal-breathe {
+  from { transform: scaleY(.58); }
+  to { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient,
+  .profile-card,
+  .profile-orbit,
+  .profile-spark,
+  .project-art-orbit,
+  .project-art-core,
+  .award-star,
+  .language-signal i { animation: none !important; }
+}
