@@ -25,6 +25,23 @@
   --sans: 'DM Sans', 'Segoe UI', Arial, sans-serif;
 }
 
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  color: #e8e7e2;
+  background: #141820;
+  --bg: #141820;
+  --surface: #1c222d;
+  --surface-alt: #252c38;
+  --ink: #e8e7e2;
+  --muted: #c0c4cc;
+  --dim: #9aa2b1;
+  --accent: #9cafea;
+  --accent-dark: #c0caf4;
+  --accent-soft: #30384f;
+  --terracotta: #e2997f;
+  --line: #353d4a;
+}
+
 * { box-sizing: border-box; }
 html { min-width: 320px; scroll-behavior: smooth; scroll-padding-top: 104px; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); }

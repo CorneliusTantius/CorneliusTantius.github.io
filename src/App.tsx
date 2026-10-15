@@ -22,8 +22,37 @@ function SectionHeading({ children }: { children: string }) {
   return <div className="section-heading"><h2>{children}</h2><span className="heading-rule" aria-hidden="true" /></div>
 }
 
+type Theme = 'light' | 'dark'
+
+function getInitialTheme(): Theme {
+  try {
+    const savedTheme = localStorage.getItem('portfolio-theme')
+    if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme
+  } catch {
+    // Storage may be unavailable; fall back to the system preference.
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+function ThemeIcon({ theme }: { theme: Theme }) {
+  return theme === 'dark'
+    ? <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7" /><path d="M12 2.5v2m0 15v2m9.5-9.5h-2m-15 0h-2m16.22-6.72-1.42 1.42M6.7 17.3l-1.42 1.42m13.44 0-1.42-1.42M6.7 6.7 5.28 5.28" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" /></svg>
+    : <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M20.2 15.2A8.3 8.3 0 0 1 8.8 3.8 8.4 8.4 0 1 0 20.2 15.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+}
+
 function App() {
   const [activeSection, setActiveSection] = useState(navigation[0].id)
+  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#141820' : '#f4f1eb')
+    try {
+      localStorage.setItem('portfolio-theme', theme)
+    } catch {
+      // The theme still works for this visit when storage is unavailable.
+    }
+  }, [theme])
 
   useEffect(() => {
     const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]')
@@ -56,6 +85,10 @@ function App() {
         <nav className="primary-nav" aria-label="Portfolio sections">
           {navigation.map(({ id, label }) => <a key={id} className={activeSection === id ? 'nav-link active' : 'nav-link'} href={`#${id}`}>{label}</a>)}
         </nav>
+        <button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`} aria-pressed={theme === 'dark'} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+          <ThemeIcon theme={theme} />
+          <span>{theme === 'light' ? 'Dark mode' : 'Light mode'}</span>
+        </button>
       </header>
 
       <main id="top">
