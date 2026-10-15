@@ -1,320 +1,136 @@
+import { useEffect, useState } from 'preact/hooks'
 import './App.css'
-import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa'
+import { awards, education, heroContent, languages, projects, workExperience } from './content'
+
+const navigation = [
+  { id: 'work-experience', label: 'Work' }, { id: 'projects', label: 'Projects' },
+  { id: 'awards-honors', label: 'Awards' }, { id: 'languages', label: 'Languages' },
+  { id: 'education', label: 'Education' }, { id: 'skills', label: 'Skills' },
+]
+
+function ArrowIcon() {
+  return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><path d="M4.5 10h10M9.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+}
+
+function SocialIcon({ name }: { name: 'email' | 'linkedin' | 'github' }) {
+  if (name === 'email') return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.6" /><path d="m4.5 7 7.5 5.5L19.5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  if (name === 'linkedin') return <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.2a1.85 1.85 0 1 0 0-3.7 1.85 1.85 0 0 0 0 3.7ZM4.9 9.7h3.2v9.5H4.9V9.7Zm5.2 0h3.1V11h.05a3.42 3.42 0 0 1 3.08-1.7c3.3 0 3.9 2.17 3.9 5v4.9h-3.2v-4.35c0-1.04-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.3v4.43h-3.2V9.7Z" /></svg>
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.75a9.25 9.25 0 0 0-2.93 18.02c.46.08.63-.2.63-.45v-1.6c-2.57.56-3.11-1.09-3.11-1.09-.42-1.07-1.03-1.36-1.03-1.36-.84-.58.06-.57.06-.57.93.06 1.42.96 1.42.96.83 1.42 2.17 1.01 2.7.77.08-.6.33-1.01.59-1.24-2.05-.24-4.21-1.03-4.21-4.58 0-1.01.36-1.84.95-2.49-.1-.23-.41-1.18.09-2.46 0 0 .77-.25 2.54.95a8.84 8.84 0 0 1 4.62 0c1.77-1.2 2.53-.95 2.53-.95.51 1.28.19 2.23.1 2.46.59.65.94 1.48.94 2.49 0 3.56-2.16 4.34-4.22 4.57.33.29.62.85.62 1.71v2.43c0 .25.17.54.64.45A9.25 9.25 0 0 0 12 2.75Z" /></svg>
+}
+
+function SectionHeading({ children, index }: { children: string; index: string }) {
+  return <div className="section-heading"><span className="section-index" aria-hidden="true">{index}</span><h2>{children}</h2><span className="heading-rule" aria-hidden="true" /></div>
+}
 
 function App() {
-  const asciiArt1 = `
- ██████╗ ██████╗ ██████╗ ███╗   ██╗███████╗██╗     ██╗██╗   ██╗███████╗
-██╔════╝██╔═══██╗██╔══██╗████╗  ██║██╔════╝██║     ██║██║   ██║██╔════╝
-██║     ██║   ██║██████╔╝██╔██╗ ██║█████╗  ██║     ██║██║   ██║███████╗
-██║     ██║   ██║██╔══██╗██║╚██╗██║██╔══╝  ██║     ██║██║   ██║╚════██║
-╚██████╗╚██████╔╝██║  ██║██║ ╚████║███████╗███████╗██║╚██████╔╝███████║
- ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝╚═╝ ╚═════╝ ╚══════╝`;
+  const [activeSection, setActiveSection] = useState(navigation[0].id)
 
- const asciiArt2 = `
-████████╗ █████╗ ███╗   ██╗████████╗██╗██╗   ██╗███████╗
-╚══██╔══╝██╔══██╗████╗  ██║╚══██╔══╝██║██║   ██║██╔════╝
-   ██║   ███████║██╔██╗ ██║   ██║   ██║██║   ██║███████╗
-   ██║   ██╔══██║██║╚██╗██║   ██║   ██║██║   ██║╚════██║
-   ██║   ██║  ██║██║ ╚████║   ██║   ██║╚██████╔╝███████║
-   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝ ╚═════╝ ╚══════╝`;
- const heroContent = {
-    name: "Tantius Cornelius",
-    title: "Backend & Infrastructure Engineer",
-    bio: "Engineer at CekatAI building backend services, infrastructure, and production architecture across AI, travel, fintech, and education. I like turning messy product problems into reliable systems: clean APIs, practical automation, observable services, and the occasional tiny frontend when the UI needs a little love. Linux and open-source enthusiast.",
-    skills: [
-      { name: "Python", icon: "python" },
-      { name: "TypeScript", icon: "ts" },
-      { name: "JavaScript", icon: "js" },
-      { name: "Java", icon: "java" },
-      { name: "C", icon: "c" },
-      { name: "C++", icon: "cpp" },
-      { name: "Node.js", icon: "nodejs" },
-      { name: "MongoDB", icon: "mongodb" },
-      { name: "PostgreSQL", icon: "postgres" },
-      { name: "Redis", icon: "redis" },
-      { name: "AWS", icon: "aws" },
-      { name: "Azure", icon: "azure" },
-      { name: "Docker", icon: "docker" },
-      { name: "Git", icon: "git" },
-      { name: "Linux", icon: "linux" },
-      { name: "Bash", icon: "bash" }
-    ],
-    social: {
-      email: "corneliustantius.ct@gmail.com",
-      linkedin: "https://linkedin.com/in/corneliustantius",
-      github: "https://github.com/corneliustantius"
-    }
-  }
+  useEffect(() => {
+    const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]')
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+    revealItems.forEach((item) => revealObserver.observe(item))
 
-  const workExperience = [
-    {
-      company: "CekatAI",
-      role: "Senior Full Stack Engineer",
-      period: "2026 - Present",
-      description: [
-        "Own stability engineering for the main chat product, improving reliability, scalability, and extensibility across core product services.",
-        "Lead infrastructure migration and enhancement initiatives to strengthen deployment workflows, operations, and long-term maintainability.",
-        "Enhance shared services platform capabilities so product teams can build, integrate, and scale services more safely and efficiently."
-      ]
-    },
-    {
-      company: "SingaPay",
-      role: "Senior Full Stack Engineer (SDE-3)",
-      period: "2026 - 2026",
-      description: [
-        "Implemented major Virtual Account Core generation algorithm enhancement to reduce VA generation process time, latency and database load (2-3 minutes) to less than 1s generation time.",
-        "Implemented pending transaction handling to reduce manual operational contact rate up to ~90%.",
-        "Created end to end gift checkout web and integrate with payment link gateway."
-      ]
-    },
-    {
-      company: "Traveloka",
-      role: "Software Engineer (SDE-2)",
-      period: "2024 - 2026",
-      description: [
-        "Built and maintain scalable backend services across Ground Transport (airport transfers, car rentals), Travel Activities (attractions, tours, experiences), and Cruise Booking domains all using Java Spring, Terraform & AWS.",
-        "Drove technical excellence and cost efficiency by refactoring legacy systems and optimizing existing workflows, allowing less development complexity on 2 major product project and several subprojects (~30% on discoverability and ~20% on buyability).",
-        "Designed and developed provider API integration module that allow seamless provider integration (reducing 95% development effort during integration).",
-        "Improved information clarity that increase purchase conversion rate to ~10% and reduce customer contact rate ~40%.",
-        "Actively maintain project vulnerability issues, manage product domain IAC using terraform."
-      ]
-    },
-    {
-      company: "Kamoro Maxima Integra",
-      role: "Junior Developer",
-      period: "2023 - 2024",
-      description: [
-        "Developed backend system for PT Freeport Indonesia to assist mining operational audit, monitor, and safety protocol to reduce casualty and audit time for mining tools and machines.",
-        "Increased operational tracking system capability up to 60%+ at the time allowing operational staff and managers to do less manual audit and increase workload efficiency on mining site.",
-        "Ensured scalability, reliability and maintainability of one of most used internal program to allow site-worker to easily access transportation on mining site, allowing site-worker to able to book, schedule and manage their own transport plan."
-      ]
-    },
-    {
-      company: "IT Division - Bina Nusantara University",
-      role: "Software Engineer (SDE-2)",
-      period: "2020 - 2023",
-      description: [
-        "Started off from Associate Member and wave through Junior Software Engineer then Software Engineer throughout college years, internship and after graduate.",
-        "Developed backend systems and automation for Zoom API integration during covid, allowing attendance system to shift 100% by system during class, and later scale up the system to enable wifi-attendance checking in campus.",
-        "Developed and maintained newbinusmaya project allowing student to access all class resources, class schedule, submitting assignment, scoring, and discussion forum seamlessly from web or mobile app.",
-        "Developed internal project DevBees as a platform for internal documentation including API contract, Master & Transaction Database relational, and also general knowledge docs. Allowing internal documentation to have 0 cost"
-      ]
-    }
-  ]
-
-  const projects = [
-    {
-      name: "Volundr",
-      featured: true,
-      url: "https://github.com/CorneliusTantius/volundr",
-      summary: "Personal AI coding agent stack focused on extensible tools, local-first workflows, and terminal-native developer experience.",
-      highlights: [
-        "Built custom agent/runtime workflows for practical coding automation.",
-        "Designed extensible tool and provider integration patterns.",
-        "Optimized for fast iteration, local control, and low-friction developer UX."
-      ],
-      tags: ["AI Agents", "CLI", "TypeScript", "Developer Tools"]
-    },
-    {
-      name: "pi-tincan",
-      url: "https://github.com/CorneliusTantius/pi-tincan",
-      summary: "Companion package extending pi with structured clarification, delegation, and squad-style agent workflows.",
-      highlights: [
-        "Added structured decision UX through ask_user_question flows.",
-        "Built tincan_squad delegation for multi-agent task execution.",
-        "Improved agent communication contracts and orchestration behavior."
-      ],
-      tags: ["Agent Orchestration", "TypeScript", "UX", "Automation"]
-    },
-    {
-      name: "dotfiles",
-      url: "https://github.com/CorneliusTantius/dotfiles",
-      summary: "Personal Linux and development environment configuration for repeatable, keyboard-first engineering.",
-      highlights: [
-        "Maintains shell, editor, terminal, and workflow configuration.",
-        "Optimized for speed, portability, and everyday engineering ergonomics."
-      ],
-      tags: ["Linux", "Shell", "Neovim", "Productivity"]
-    }
-  ]
-
-  const awards = [
-    {
-      title: "Top 7% from 964 Teams",
-      year: "2021",
-      description: "Shopee Code League - Multi-Channel Contacts"
-    },
-    {
-      title: "Top 12% from 823 Teams",
-      year: "2020",
-      description: "Shopee Code League - Product Detection 2020"
-    },
-    {
-      title: "Participant",
-      year: "2017",
-      description: "Province Computer Olympiad - Programming Competition"
-    }
-  ]
-
-  const languages = [
-    { name: "English", level: "Native" },
-    { name: "Indonesian", level: "Native" },
-    { name: "Korean", level: "Basic"},
-    { name: "Mandarin", level: "Basic" }
-  ]
-
-  const education = [
-    {
-      institution: "Bina Nusantara University",
-      degree: "Bachelor of Computer Science",
-      period: "2019-2023",
-      description: "Best Graduate with GPA 3.94/4.0"
-    }
-  ]
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActiveSection(entry.target.id)
+      })
+    }, { rootMargin: '-20% 0px -65% 0px' })
+    navigation.forEach(({ id }) => {
+      const section = document.getElementById(id)
+      if (section) sectionObserver.observe(section)
+    })
+    return () => { revealObserver.disconnect(); sectionObserver.disconnect() }
+  }, [])
 
   return (
-    <div className="terminal">
-      <div className="terminal-header">
-        <div className="terminal-buttons">
-          <span className="btn-close"></span>
-          <span className="btn-minimize"></span>
-          <span className="btn-maximize"></span>
-        </div>
-        <span className="terminal-title">tantius@cornelius: ~</span>
-      </div>
-      <div className="terminal-body">
-        <section className="hero-section">
-          <div className="ascii-container">
-            <pre className="ascii-art ascii-art-1">{asciiArt1}</pre>
-            <pre className="ascii-art ascii-art-2">{asciiArt2}</pre>
-          </div>
-          <div className="hero-info">
-            <p className="hero-title">{heroContent.title}</p>
+    <div className="portfolio-shell">
+      <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
+      <header className="topbar">
+        <a className="brand-mark" href="#top" aria-label="Tantius Cornelius, back to top">ct<span>.</span></a>
+        <div className="terminal-label"><span className="terminal-dot" />tantius@cornelius: ~</div>
+        <nav className="primary-nav" aria-label="Portfolio sections">
+          {navigation.map(({ id, label }) => <a key={id} className={activeSection === id ? 'nav-link active' : 'nav-link'} href={`#${id}`}>{label}</a>)}
+        </nav>
+        <a className="top-contact" href={`mailto:${heroContent.social.email}`}>Let’s talk <ArrowIcon /></a>
+      </header>
+
+      <main id="top">
+        <section className="hero" aria-labelledby="hero-name">
+          <div className="hero-copy" data-reveal>
+            <div className="eyebrow"><span className="eyebrow-line" />{heroContent.title}</div>
+            <h1 id="hero-name">{heroContent.name.split(' ').map((part, index) => <span key={part} className={index === 1 ? 'name-accent' : undefined}>{part}{index === 0 && <br />}</span>)}</h1>
             <p className="hero-bio">{heroContent.bio}</p>
+            <div className="social-links" aria-label="Contact and social links">
+              <a className="social-btn" href={`mailto:${heroContent.social.email}`} aria-label="Email"><SocialIcon name="email" /></a>
+              <a className="social-btn" href={heroContent.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon name="linkedin" /></a>
+              <a className="social-btn" href={heroContent.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon name="github" /></a>
+            </div>
           </div>
-          <div className="social-links">
-            <a href={`mailto:${heroContent.social.email}`} className="social-btn" title="Email">
-              <FaEnvelope size={20} />
-            </a>
-            <a href={heroContent.social.linkedin} target="_blank" rel="noopener noreferrer" className="social-btn" title="LinkedIn">
-              <FaLinkedin size={20} />
-            </a>
-            <a href={heroContent.social.github} target="_blank" rel="noopener noreferrer" className="social-btn" title="GitHub">
-              <FaGithub size={20} />
-            </a>
+          <div className="hero-art" aria-hidden="true">
+            <div className="art-grid" /><div className="orbit orbit-outer" /><div className="orbit orbit-middle" /><div className="orbit orbit-inner" />
+            <div className="planet"><span /></div><div className="orbit-point point-one" /><div className="orbit-point point-two" /><div className="orbit-point point-three" />
+            <div className="art-cross cross-one">+</div><div className="art-cross cross-two">+</div><div className="art-ring" />
           </div>
+          <a className="scroll-note" href="#work-experience"><span className="scroll-line" />Explore the work</a>
         </section>
-        <hr className="section-divider" />
-        <section className="experience-section">
-          <h3 className="section-title">~/work-experience</h3>
+
+        <section className="content-section experience-section" id="work-experience">
+          <SectionHeading index="01">~/work-experience</SectionHeading>
           <div className="experience-list">
-            {workExperience.map((job, index) => (
-              <div key={index} className="experience-item">
-                <div className="experience-header">
-                  <span className="company">{job.company}</span>
-                  <span className="period">{job.period}</span>
-                </div>
-                <p className="role">{job.role}</p>
-                <ul className="description-list">
-                  {job.description.map((item, idx) => (
-                    <li key={idx} className="description">{item}</li>
-                  ))}
-                </ul>
+            {workExperience.map((job, index) => <article key={job.company} className="experience-card" data-reveal>
+              <div className="timeline-marker" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span></div>
+              <div className="experience-main">
+                <div className="experience-topline"><div><h3 className="company">{job.company}</h3><p className="role">{job.role}</p></div><span className="period">{job.period}</span></div>
+                <ul className="description-list">{job.description.map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
-            ))}
+            </article>)}
           </div>
         </section>
-        <hr className="section-divider" />
-        <section className="projects-section">
-          <h3 className="section-title">~/projects</h3>
-          <div className="project-list">
-            {projects.map((project, index) => (
-              <div key={index} className={`project-item${project.featured ? ' featured' : ''}`}>
-                <div className="project-header">
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
-                    {project.name}
-                  </a>
-                  {project.featured && <span className="project-badge">FEATURED</span>}
-                </div>
+
+        <section className="content-section projects-section" id="projects">
+          <SectionHeading index="02">~/projects</SectionHeading>
+          <div className="project-grid">
+            {projects.map((project, index) => <article key={project.name} className={`project-card${project.featured ? ' featured' : ''}`} data-reveal>
+              <div className={`project-art project-art-${index + 1}`} aria-hidden="true"><span className="project-art-orbit" /><span className="project-art-core" /><span className="project-art-glyph">{index === 0 ? 'V' : index === 1 ? 'π' : '{ }'}</span><span className="project-art-coordinate">0{index + 1}</span></div>
+              <div className="project-content">
+                <div className="project-heading"><a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">{project.name}<span className="project-arrow"><ArrowIcon /></span></a>{project.featured && <span className="project-badge">FEATURED</span>}</div>
                 <p className="project-summary">{project.summary}</p>
-                <ul className="description-list">
-                  {project.highlights.map((item, idx) => (
-                    <li key={idx} className="description">{item}</li>
-                  ))}
-                </ul>
-                <div className="project-tags">
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} className="project-tag">{tag}</span>
-                  ))}
-                </div>
+                <ul className="description-list">{project.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+                <div className="project-tags">{project.tags.map((tag) => <span key={tag} className="project-tag">{tag}</span>)}</div>
               </div>
-            ))}
+            </article>)}
           </div>
         </section>
-        <hr className="section-divider" />
-        <section className="experience-section">
-          <h3 className="section-title">~/awards-honors</h3>
-          <div className="award-list">
-            {awards.map((award, index) => (
-              <div key={index} className="award-item">
-                <div className="award-header">
-                  <span className="award-title">{award.title}</span>
-                  <span className="award-year">{award.year}</span>
-                </div>
-                <p className="award-description">{award.description}</p>
-              </div>
-            ))}
-          </div>
+
+        <section className="content-section awards-section" id="awards-honors">
+          <SectionHeading index="03">~/awards-honors</SectionHeading>
+          <div className="award-grid">{awards.map((award) => <article key={award.title} className="award-card" data-reveal><span className="award-year">{award.year}</span><h3 className="award-title">{award.title}</h3><p className="award-description">{award.description}</p><span className="award-star" aria-hidden="true">✳</span></article>)}</div>
         </section>
-        <hr className="section-divider" />
-        <section className="language-section">
-          <h3 className="section-title">~/languages</h3>
-          <div className="language-list">
-            {languages.map((lang, index) => (
-              <div key={index} className="language-item">
-                <span className="language-name">{lang.name}</span>
-                <span className="language-level">{lang.level}</span>
-              </div>
-            ))}
-          </div>
+
+        <section className="content-section languages-section" id="languages">
+          <SectionHeading index="04">~/languages</SectionHeading>
+          <div className="language-grid">{languages.map((language, index) => <div key={language.name} className="language-card" data-reveal><span className="language-index">0{index + 1}</span><span className="language-name">{language.name}</span><span className="language-level">{language.level}</span><span className="language-signal" aria-hidden="true"><i /><i /><i /><i /></span></div>)}</div>
         </section>
-        <hr className="section-divider" />
-        <section className="education-section">
-          <h3 className="section-title">~/education</h3>
-          <div className="education-list">
-            {education.map((edu, index) => (
-              <div key={index} className="education-item">
-                <div className="education-header">
-                  <span className="institution">{edu.institution}</span>
-                  <span className="period">{edu.period}</span>
-                </div>
-                <p className="degree">{edu.degree}</p>
-                <p className="education-description">{edu.description}</p>
-              </div>
-            ))}
-          </div>
+        <section className="content-section education-section" id="education">
+          <SectionHeading index="05">~/education</SectionHeading>
+          <div className="education-list">{education.map((edu) => <article key={edu.institution} className="education-card" data-reveal><div className="education-emblem" aria-hidden="true">✳</div><div className="education-main"><div className="education-header"><h3 className="institution">{edu.institution}</h3><span className="period">{edu.period}</span></div><p className="degree">{edu.degree}</p><p className="education-description">{edu.description}</p></div></article>)}</div>
         </section>
-        <hr className="section-divider" />
-        <section className="skills-section">
-          <h3 className="section-title">~/skills</h3>
-          <div className="hero-skills">
-            {heroContent.skills.map((skill, index) => (
-              <span key={index} className="skill-tag">
-                <img
-                  src={`https://skillicons.dev/icons?i=${skill.icon}`}
-                  alt=""
-                  aria-hidden="true"
-                  className="skill-icon"
-                />
-                <span>{skill.name}</span>
-              </span>
-            ))}
-          </div>
+
+        <section className="content-section skills-section" id="skills">
+          <SectionHeading index="06">~/skills</SectionHeading>
+          <div className="skills-grid">{heroContent.skills.map((skill) => <div key={skill.name} className="skill-card" data-reveal><img src={`https://skillicons.dev/icons?i=${skill.icon}`} alt="" aria-hidden="true" className="skill-icon" loading="lazy" decoding="async" /><span>{skill.name}</span></div>)}</div>
         </section>
-        <div className="terminal-prompt">
-          <span className="prompt-user">tantius@cornelius</span>:<span className="prompt-path">~</span>$ <span className="cursor">_</span>
-        </div>
-      </div>
+
+        <div className="terminal-prompt"><span className="prompt-user">tantius@cornelius</span>:<span className="prompt-path">~</span>$ <span className="cursor">_</span></div>
+      </main>
+      <footer className="site-footer"><span>ct<span className="footer-dot">.</span></span><a href="#top">Back to top <ArrowIcon /></a></footer>
     </div>
   )
 }

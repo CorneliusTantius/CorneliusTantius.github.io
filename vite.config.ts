@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import preact from '@preact/preset-vite'
 
-// https://vite.dev/config/
+// This username.github.io repository is deployed at the domain root.
 export default defineConfig({
-  plugins: [react()],
+  base: '/',
+  plugins: [preact()],
 })
