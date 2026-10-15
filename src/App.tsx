@@ -3,7 +3,7 @@ import './App.css'
 import { awards, education, heroContent, languages, projects, workExperience } from './content'
 
 const navigation = [
-  { id: 'work-experience', label: 'Work' }, { id: 'projects', label: 'Projects' },
+  { id: 'work-experience', label: 'Experience' }, { id: 'projects', label: 'Projects' },
   { id: 'awards-honors', label: 'Awards' }, { id: 'languages', label: 'Languages' },
   { id: 'education', label: 'Education' }, { id: 'skills', label: 'Skills' },
 ]
@@ -53,12 +53,10 @@ function App() {
     <div className="portfolio-shell">
       <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
       <header className="topbar">
-        <a className="brand-mark" href="#top" aria-label="Tantius Cornelius, back to top">ct<span>.</span></a>
-        <div className="terminal-label"><span className="terminal-dot" />tantius@cornelius: ~</div>
+        <a className="brand-mark" href="#top" aria-label="Tantius Cornelius, back to top">CT<span>.</span></a>
         <nav className="primary-nav" aria-label="Portfolio sections">
           {navigation.map(({ id, label }) => <a key={id} className={activeSection === id ? 'nav-link active' : 'nav-link'} href={`#${id}`}>{label}</a>)}
         </nav>
-        <a className="top-contact" href={`mailto:${heroContent.social.email}`}>Let’s talk <ArrowIcon /></a>
       </header>
 
       <main id="top">
@@ -68,21 +66,25 @@ function App() {
             <h1 id="hero-name">{heroContent.name.split(' ').map((part, index) => <span key={part} className={index === 1 ? 'name-accent' : undefined}>{part}{index === 0 && <br />}</span>)}</h1>
             <p className="hero-bio">{heroContent.bio}</p>
             <div className="social-links" aria-label="Contact and social links">
-              <a className="social-btn" href={`mailto:${heroContent.social.email}`} aria-label="Email"><SocialIcon name="email" /></a>
-              <a className="social-btn" href={heroContent.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><SocialIcon name="linkedin" /></a>
-              <a className="social-btn" href={heroContent.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><SocialIcon name="github" /></a>
+              <a className="social-btn" href={`mailto:${heroContent.social.email}`}><SocialIcon name="email" /><span>Email</span></a>
+              <a className="social-btn" href={heroContent.social.linkedin} target="_blank" rel="noopener noreferrer"><SocialIcon name="linkedin" /><span>LinkedIn</span></a>
+              <a className="social-btn" href={heroContent.social.github} target="_blank" rel="noopener noreferrer"><SocialIcon name="github" /><span>GitHub</span></a>
             </div>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="art-grid" /><div className="orbit orbit-outer" /><div className="orbit orbit-middle" /><div className="orbit orbit-inner" />
-            <div className="planet"><span /></div><div className="orbit-point point-one" /><div className="orbit-point point-two" /><div className="orbit-point point-three" />
-            <div className="art-cross cross-one">+</div><div className="art-cross cross-two">+</div><div className="art-ring" />
-          </div>
-          <a className="scroll-note" href="#work-experience"><span className="scroll-line" />Explore the work</a>
+          <aside className="profile-visual" aria-hidden="true" data-reveal>
+            <div className="profile-card">
+              <div className="profile-card-top"><span>PERSONAL PROFILE</span><span>01 / 01</span></div>
+              <div className="profile-monogram"><span>CT</span><i /><i /><i /></div>
+              <div className="profile-card-bottom"><span className="profile-caption">Tantius Cornelius</span><span>{heroContent.title}</span></div>
+            </div>
+            <span className="profile-orbit profile-orbit-one" /><span className="profile-orbit profile-orbit-two" />
+            <span className="profile-spark spark-one">✳</span><span className="profile-spark spark-two">✳</span>
+          </aside>
+          <a className="scroll-note" href="#work-experience"><span className="scroll-line" />View experience</a>
         </section>
 
         <section className="content-section experience-section" id="work-experience">
-          <SectionHeading index="01">~/work-experience</SectionHeading>
+          <SectionHeading index="01">Work experience</SectionHeading>
           <div className="experience-list">
             {workExperience.map((job, index) => <article key={job.company} className="experience-card" data-reveal>
               <div className="timeline-marker" aria-hidden="true"><span>{String(index + 1).padStart(2, '0')}</span></div>
@@ -95,7 +97,7 @@ function App() {
         </section>
 
         <section className="content-section projects-section" id="projects">
-          <SectionHeading index="02">~/projects</SectionHeading>
+          <SectionHeading index="02">Selected projects</SectionHeading>
           <div className="project-grid">
             {projects.map((project, index) => <article key={project.name} className={`project-card${project.featured ? ' featured' : ''}`} data-reveal>
               <div className={`project-art project-art-${index + 1}`} aria-hidden="true"><span className="project-art-orbit" /><span className="project-art-core" /><span className="project-art-glyph">{index === 0 ? 'V' : index === 1 ? 'π' : '{ }'}</span><span className="project-art-coordinate">0{index + 1}</span></div>
@@ -110,27 +112,26 @@ function App() {
         </section>
 
         <section className="content-section awards-section" id="awards-honors">
-          <SectionHeading index="03">~/awards-honors</SectionHeading>
+          <SectionHeading index="03">Awards &amp; honors</SectionHeading>
           <div className="award-grid">{awards.map((award) => <article key={award.title} className="award-card" data-reveal><span className="award-year">{award.year}</span><h3 className="award-title">{award.title}</h3><p className="award-description">{award.description}</p><span className="award-star" aria-hidden="true">✳</span></article>)}</div>
         </section>
 
         <section className="content-section languages-section" id="languages">
-          <SectionHeading index="04">~/languages</SectionHeading>
+          <SectionHeading index="04">Languages</SectionHeading>
           <div className="language-grid">{languages.map((language, index) => <div key={language.name} className="language-card" data-reveal><span className="language-index">0{index + 1}</span><span className="language-name">{language.name}</span><span className="language-level">{language.level}</span><span className="language-signal" aria-hidden="true"><i /><i /><i /><i /></span></div>)}</div>
         </section>
         <section className="content-section education-section" id="education">
-          <SectionHeading index="05">~/education</SectionHeading>
+          <SectionHeading index="05">Education</SectionHeading>
           <div className="education-list">{education.map((edu) => <article key={edu.institution} className="education-card" data-reveal><div className="education-emblem" aria-hidden="true">✳</div><div className="education-main"><div className="education-header"><h3 className="institution">{edu.institution}</h3><span className="period">{edu.period}</span></div><p className="degree">{edu.degree}</p><p className="education-description">{edu.description}</p></div></article>)}</div>
         </section>
 
         <section className="content-section skills-section" id="skills">
-          <SectionHeading index="06">~/skills</SectionHeading>
+          <SectionHeading index="06">Technical skills</SectionHeading>
           <div className="skills-grid">{heroContent.skills.map((skill) => <div key={skill.name} className="skill-card" data-reveal><img src={`https://skillicons.dev/icons?i=${skill.icon}`} alt="" aria-hidden="true" className="skill-icon" loading="lazy" decoding="async" /><span>{skill.name}</span></div>)}</div>
         </section>
 
-        <div className="terminal-prompt"><span className="prompt-user">tantius@cornelius</span>:<span className="prompt-path">~</span>$ <span className="cursor">_</span></div>
       </main>
-      <footer className="site-footer"><span>ct<span className="footer-dot">.</span></span><a href="#top">Back to top <ArrowIcon /></a></footer>
+      <footer className="site-footer"><span className="footer-brand">CT<span>.</span></span><span className="footer-name">Tantius Cornelius · Backend &amp; Infrastructure Engineer</span><a href="#top">Back to top <ArrowIcon /></a></footer>
     </div>
   )
 }

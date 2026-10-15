@@ -1,44 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
 
 :root {
-  font-family: 'Manrope', 'Arial', sans-serif;
-  color: #edf1e9;
-  background: #101311;
+  font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
+  color: #202b40;
+  background: #f4f1eb;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
   font-weight: 400;
-  --bg: #101311;
-  --panel: #171c19;
-  --panel-light: #1d231f;
-  --ink: #edf1e9;
-  --muted: #99a49a;
-  --dim: #69736b;
-  --lime: #d5fb69;
-  --orange: #ff865e;
-  --line: rgba(226, 238, 218, .12);
-  --mono: 'DM Mono', 'Courier New', monospace;
+  --bg: #f4f1eb;
+  --surface: #fffefa;
+  --surface-alt: #eeebe4;
+  --ink: #202b40;
+  --muted: #566174;
+  --dim: #727b88;
+  --accent: #5269b7;
+  --accent-dark: #384d98;
+  --accent-soft: #e6e9f4;
+  --terracotta: #b76a52;
+  --line: #dfddd7;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', 'Segoe UI', Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
-html { min-width: 320px; scroll-behavior: smooth; scroll-padding-top: 94px; }
+html { min-width: 320px; scroll-behavior: smooth; scroll-padding-top: 104px; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--bg); }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(236, 246, 228, .09) .55px, transparent .7px);
-  background-size: 6px 6px;
-  opacity: .12;
-}
+body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(rgba(32, 43, 64, .08) .6px, transparent .8px); background-size: 7px 7px; opacity: .2; }
 a { color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
-a:focus-visible { outline: 2px solid var(--lime); outline-offset: 5px; }
-::selection { color: var(--bg); background: var(--lime); }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+::selection { color: #fff; background: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
