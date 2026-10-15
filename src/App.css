@@ -234,6 +234,29 @@
 .language-signal i:nth-child(3) { animation-delay: -1s; }
 .language-signal i:nth-child(4) { animation-delay: -1.5s; }
 
+/* Additional low-key loops add a little life to otherwise still details. */
+.eyebrow-line { transform-origin: left center; animation: line-breathe 5s ease-in-out infinite; }
+.name-accent { animation: name-glow 8s ease-in-out infinite; }
+.heading-rule { background-size: 200% 100%; animation: rule-shimmer 12s ease-in-out infinite; }
+.experience-list::before { background-size: 100% 200%; animation: timeline-glow 10s ease-in-out infinite; }
+.project-art::before { animation: grid-drift 36s linear infinite; }
+.project-art-coordinate { animation: coordinate-float 7s ease-in-out infinite; }
+.project-art-2 .project-art-coordinate { animation-delay: -2s; }
+.project-art-3 .project-art-coordinate { animation-delay: -4s; }
+.skill-icon { animation: icon-hover 5s ease-in-out infinite; }
+.skill-card:nth-child(3n + 2) .skill-icon { animation-delay: -1.7s; }
+.skill-card:nth-child(3n) .skill-icon { animation-delay: -3.3s; }
+.scroll-line { transform-origin: left center; animation: scroll-pulse 2.8s ease-in-out infinite; }
+.nav-link.active::after { animation: nav-glint 4.5s ease-in-out infinite; }
+.award-card::before { content: ''; position: absolute; z-index: 0; width: 170px; aspect-ratio: 1; right: -90px; bottom: -115px; border-radius: 50%; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; animation: award-drift 12s ease-in-out infinite alternate; }
+.award-card:nth-child(2)::before { animation-delay: -4s; }
+.award-card:nth-child(3)::before { animation-delay: -8s; }
+.award-card > :not(.award-star) { position: relative; z-index: 1; }
+.award-star { z-index: 1; }
+.language-signal { animation: signal-hover 6s ease-in-out infinite; }
+.language-card:nth-child(even) .language-signal { animation-delay: -3s; }
+.footer-brand span { display: inline-block; animation: footer-twinkle 3.8s ease-in-out infinite; }
+
 @keyframes ambient-drift {
   from { transform: translate3d(0, -14px, 0) scale(.96); }
   to { transform: translate3d(55px, 32px, 0) scale(1.08); }
@@ -260,6 +283,53 @@
   from { transform: scaleY(.58); }
   to { transform: scaleY(1); }
 }
+@keyframes line-breathe {
+  0%, 100% { scale: 1 1; opacity: .7; }
+  50% { scale: 1.22 1; opacity: 1; }
+}
+@keyframes name-glow {
+  0%, 100% { text-shadow: 0 0 0 transparent; }
+  50% { text-shadow: 0 3px 24px rgba(82,105,183,.13); }
+}
+@keyframes rule-shimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0 0; }
+}
+@keyframes timeline-glow {
+  0%, 100% { background-position: 0 0; }
+  50% { background-position: 0 100%; }
+}
+@keyframes grid-drift {
+  to { background-position: 29px 29px, 29px 29px; }
+}
+@keyframes coordinate-float {
+  0%, 100% { transform: translateY(0); opacity: .75; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+@keyframes icon-hover {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-3px) rotate(-2deg); }
+}
+@keyframes scroll-pulse {
+  0%, 100% { scale: 1 1; opacity: .65; }
+  50% { scale: .72 1; opacity: 1; }
+}
+@keyframes nav-glint {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
+@keyframes award-drift {
+  from { transform: translate(-8px, 5px) scale(.9); opacity: .45; }
+  to { transform: translate(8px, -8px) scale(1.1); opacity: .8; }
+}
+@keyframes signal-hover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes footer-twinkle {
+  0%, 100% { transform: scale(.85); opacity: .7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ambient,
@@ -269,5 +339,17 @@
   .project-art-orbit,
   .project-art-core,
   .award-star,
-  .language-signal i { animation: none !important; }
+  .language-signal i,
+  .eyebrow-line,
+  .name-accent,
+  .heading-rule,
+  .experience-list::before,
+  .project-art::before,
+  .project-art-coordinate,
+  .skill-icon,
+  .scroll-line,
+  .nav-link.active::after,
+  .award-card::before,
+  .language-signal,
+  .footer-brand span { animation: none !important; }
 }
